@@ -1,10 +1,11 @@
 package com.fsoares.machines.actions;
 
 import com.fsoares.env.Position;
+import com.fsoares.machines.actions.abstractions.ActionInterface;
 import com.fsoares.machines.actions.abstractions.MovableInterface;
 import com.fsoares.machines.actions.abstractions.Movement;
 
-public class Move {
+public class Move implements ActionInterface {
 
     MovableInterface movable = null;
 
@@ -37,8 +38,16 @@ public class Move {
                 nextPosition.setX(movable.position.getX() + 1);
                 break;
 
+            case STAY:
+                return nextPosition;
+
         }
 
         return nextPosition;
+    }
+
+    @Override
+    public void act() {
+        this.move(Movement.random());
     }
 }

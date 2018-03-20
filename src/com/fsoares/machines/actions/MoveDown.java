@@ -8,4 +8,5 @@ public class MoveDown extends Move implements ActionInterface {
     public void act() {
         this.move(Movement.DOWN);
     }
+
 }
