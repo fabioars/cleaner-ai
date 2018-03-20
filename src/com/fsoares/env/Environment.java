@@ -1,5 +1,7 @@
 package com.fsoares.env;
 
+import java.util.EventObject;
+
 public class Environment {
 
     private int env[][] = null;
