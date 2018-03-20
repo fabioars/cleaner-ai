@@ -1,14 +1,12 @@
 package com.fsoares.env;
 
-import java.util.EventObject;
-
 public class Environment {
 
     private int env[][] = null;
     private Bounds bounds = null;
 
-    public static final int CLEAR = 1;
-    public static final int DIRTY = 1;
+    private static final int CLEAR = 0;
+    private static final int DIRTY = 1;
 
     public Environment(int width, int height) {
         this.env = new int[width][height];
@@ -34,8 +32,8 @@ public class Environment {
     }
 
     public Environment forEach(EnvironmentIterable interable) {
-        for(int x = 0; x <= this.bounds.getPositionFinal().getX(); x++) {
-            for(int y = 0; y <= this.bounds.getPositionFinal().getY(); y++) {
+        for(int x = 0; x < this.bounds.getPositionFinal().getX(); x++) {
+            for(int y = 0; y < this.bounds.getPositionFinal().getY(); y++) {
                 interable.each(Position.getInstance(x, y), this.isDirty(x, y), this);
             }
         }
@@ -70,9 +68,9 @@ public class Environment {
     }
 
     public Position closestDurty(Position ref) {
-        final Position closest = new Position(-1, -1);
+        final Position closest = this.bounds.getPositionFinal().clone();
         this.forEach((Position position, boolean isDuty, Environment context) -> {
-            if(isDuty && position.distance(ref) >= closest.distance(ref)) {
+            if(isDuty && position.distance(ref) <= closest.distance(ref)) {
                 closest.set(position);
             }
         });
@@ -85,6 +83,20 @@ public class Environment {
     }
 
     public Bounds getBounds() {
-        return bounds;
+        return this.bounds;
+    }
+
+    @Override
+    public String toString() {
+        String partial = "";
+
+        for(int x = 0; x < this.bounds.getPositionFinal().getX(); x++) {
+            for(int y = 0; y < this.bounds.getPositionFinal().getY(); y++) {
+                partial += this.env[x][y];
+            }
+            partial += "\n";
+        }
+
+        return partial;
     }
 }

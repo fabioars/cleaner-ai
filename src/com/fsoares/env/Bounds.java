@@ -39,4 +39,9 @@ public class Bounds {
     public void setPositionFinal(Position positionFinal) {
         this.positionFinal = positionFinal;
     }
+
+    @Override
+    public String toString() {
+        return String.format("Bounds: [x: %s y:%s] [x: %s y: %s]", positionInitial.getX(), positionInitial.getY(), getPositionFinal().getX(), getPositionFinal().getY());
+    }
 }

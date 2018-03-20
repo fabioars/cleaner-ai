@@ -40,11 +40,11 @@ public class Position {
     }
 
     public int diffY(int y) {
-        return y - this.y;
+        return this.y - y;
     }
 
     public int diffX(int x) {
-        return x;
+        return this.x - x;
     }
 
     public int distance(int x, int y) {
@@ -70,5 +70,10 @@ public class Position {
         Position position = (Position) o;
         return x == position.x &&
                 y == position.y;
+    }
+
+    @Override
+    public String toString() {
+        return String.format("[x: %s, y: %s]", this.getX(), this.getY());
     }
 }

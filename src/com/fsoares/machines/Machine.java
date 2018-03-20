@@ -6,7 +6,7 @@ import com.fsoares.machines.actions.abstractions.ActionInterface;
 import com.fsoares.machines.actions.abstractions.MovableInterface;
 import com.fsoares.util.Fifo;
 
-public abstract class Machine implements MovableInterface {
+public abstract class Machine extends Thread implements MovableInterface {
 
     private Environment env = null;
     private Fifo<ActionInterface> actions = null;
@@ -25,4 +25,26 @@ public abstract class Machine implements MovableInterface {
     public Position getPosition() {
         return this.position;
     }
+
+    public Machine addAction(ActionInterface action) {
+        this.actions.add(action);
+
+        return this;
+    }
+
+    public Machine act() {
+        this.actions.next();
+        return this;
+    }
+
+    protected void waiting(long time) {
+        try {
+            this.sleep(time);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+    }
+
+
+
 }

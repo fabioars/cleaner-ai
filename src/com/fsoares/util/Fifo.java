@@ -18,8 +18,12 @@ public class Fifo<T> {
         return this;
     }
 
-    public T next(T item) {
+    public T next() {
         return list.remove(FIST_ELEMENT);
+    }
+
+    public boolean isEmpty() {
+        return list.isEmpty();
     }
 
     public ArrayList<T> getList() {
