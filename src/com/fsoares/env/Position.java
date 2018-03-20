@@ -1,5 +1,7 @@
 package com.fsoares.env;
 
+import java.util.Objects;
+
 public class Position {
 
     private int x = 0;
@@ -54,5 +56,19 @@ public class Position {
 
     public int distance(Position position) {
         return this.distance(position.getX(), position.getY());
+    }
+
+    @Override
+    public Position clone() {
+        return Position.getInstance(this.getX(), this.getY());
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Position position = (Position) o;
+        return x == position.x &&
+                y == position.y;
     }
 }

@@ -3,16 +3,14 @@ package com.fsoares.env;
 public class Environment {
 
     private int env[][] = null;
-    private int width = 0;
-    private int height = 0;
+    private Bounds bounds = null;
 
     public static final int CLEAR = 1;
     public static final int DIRTY = 1;
 
     public Environment(int width, int height) {
         this.env = new int[width][height];
-        this.width = width;
-        this.height = height;
+        this.bounds = new Bounds(width, height);
 
         this.clear();
     }
@@ -34,8 +32,8 @@ public class Environment {
     }
 
     public Environment forEach(EnvironmentIterable interable) {
-        for(int x = 0; x <= width; x++) {
-            for(int y = 0; y <= height; y++) {
+        for(int x = 0; x <= this.bounds.getPositionFinal().getX(); x++) {
+            for(int y = 0; y <= this.bounds.getPositionFinal().getY(); y++) {
                 interable.each(Position.getInstance(x, y), this.isDirty(x, y), this);
             }
         }
@@ -69,14 +67,22 @@ public class Environment {
         return this;
     }
 
-    public Position closestDurty(Position pos) {
+    public Position closestDurty(Position ref) {
         final Position closest = new Position(-1, -1);
         this.forEach((Position position, boolean isDuty, Environment context) -> {
-            if(isDuty && position.distance(pos) >= closest.distance(pos)) {
+            if(isDuty && position.distance(ref) >= closest.distance(ref)) {
                 closest.set(position);
             }
         });
 
         return closest;
+    }
+
+    public Position closestDurty(int x, int y) {
+        return this.closestDurty(Position.getInstance(x, y));
+    }
+
+    public Bounds getBounds() {
+        return bounds;
     }
 }

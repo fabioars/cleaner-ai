@@ -3,24 +3,46 @@ package com.fsoares.machines;
 import com.fsoares.env.Environment;
 import com.fsoares.env.Position;
 
-public abstract class Machine {
+public abstract class Machine implements ActionInterface, MovableInterface {
 
     private Position position = null;
     private Environment env = null;
-
-
-
-    public final int MOVE_UP = 0;
-    public final int MOVE_DOWN = 1;
-    public final int MOVE_LEFT = 2;
-    public final int MOVE_RIGHT = 0;
 
     public Machine(Environment env, Position position) {
         this.env = env;
         this.position = position;
     }
 
-    public abstract Machine act();
+    @Override
+    public ActionInterface act() {
+        return null;
+    }
 
-//    public
+    @Override
+    public MovableInterface move(Movement movement) {
+        Position nextPosition = this.position.clone();
+        switch (movement) {
+            case UP:
+                nextPosition.setY(position.getY() - 1);
+                break;
+
+            case DOWN:
+                nextPosition.setY(position.getY() + 1);
+                break;
+
+            case LEFT:
+                nextPosition.setX(position.getX() - 1);
+                break;
+
+            case RIGHT:
+                nextPosition.setX(position.getX() + 1);
+                break;
+        }
+
+        if(this.env.getBounds().isInBounds(nextPosition)) {
+            this.position.set(nextPosition);
+        }
+
+        return this;
+    }
 }
