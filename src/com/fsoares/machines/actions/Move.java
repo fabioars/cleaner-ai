@@ -9,6 +9,12 @@ public class Move implements ActionInterface {
 
     MovableInterface movable = null;
 
+    public Move() {}
+
+    public Move(MovableInterface movable) {
+        setContext(movable);
+    }
+
     public MovableInterface getContext() {
         return movable;
     }
@@ -20,7 +26,7 @@ public class Move implements ActionInterface {
     }
 
     public Position move(Movement movement) {
-        Position nextPosition = this.movable.position.clone();
+        Position nextPosition = this.movable.position;
         switch (movement) {
             case UP:
                 nextPosition.setY(movable.position.getY() - 1);

@@ -8,6 +8,12 @@ public class Dirty implements ActionInterface {
 
     private Machine context = null;
 
+    public Dirty() {}
+
+    public Dirty(Machine context) {
+        this.setContext(context);
+    }
+
     public Machine getContext() {
         return context;
     }

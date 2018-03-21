@@ -8,6 +8,12 @@ public class Clear implements ActionInterface {
 
     private Machine context = null;
 
+    public Clear() {}
+
+    public Clear(Machine context) {
+        this.setContext(context);
+    }
+
     public Machine getContext() {
         return context;
     }

@@ -33,7 +33,10 @@ public abstract class Machine extends Thread implements MovableInterface {
     }
 
     public Machine act() {
-        this.actions.next();
+        ActionInterface action = this.actions.next();
+
+        action.act();
+
         return this;
     }
 
@@ -44,7 +47,5 @@ public abstract class Machine extends Thread implements MovableInterface {
             e.printStackTrace();
         }
     }
-
-
 
 }

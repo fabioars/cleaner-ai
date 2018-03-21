@@ -10,7 +10,7 @@ public class Environment {
 
     public Environment(int width, int height) {
         this.env = new int[width][height];
-        this.bounds = new Bounds(width, height);
+        this.bounds = new Bounds(width - 1, height - 1);
 
         this.clear();
     }
@@ -32,8 +32,8 @@ public class Environment {
     }
 
     public Environment forEach(EnvironmentIterable interable) {
-        for(int x = 0; x < this.bounds.getPositionFinal().getX(); x++) {
-            for(int y = 0; y < this.bounds.getPositionFinal().getY(); y++) {
+        for(int x = 0; x <= this.bounds.getPositionFinal().getX(); x++) {
+            for(int y = 0; y <= this.bounds.getPositionFinal().getY(); y++) {
                 interable.each(Position.getInstance(x, y), this.isDirty(x, y), this);
             }
         }
@@ -90,8 +90,8 @@ public class Environment {
     public String toString() {
         String partial = "";
 
-        for(int x = 0; x < this.bounds.getPositionFinal().getX(); x++) {
-            for(int y = 0; y < this.bounds.getPositionFinal().getY(); y++) {
+        for(int x = 0; x <= this.bounds.getPositionFinal().getX(); x++) {
+            for(int y = 0; y <= this.bounds.getPositionFinal().getY(); y++) {
                 partial += this.env[x][y];
             }
             partial += "\n";
