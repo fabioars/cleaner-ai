@@ -18,7 +18,7 @@ public class Cleaner extends Machine implements Runnable, AgentInterface {
         Position closet = env.closestDirty(this.getPosition());
 
         boolean isAllClear = env.isAllClean();
-        if(isAllClear) {
+        if(isAllClear || closet == null) {
             history.stop();
 
             return new Stay().setContext(this);

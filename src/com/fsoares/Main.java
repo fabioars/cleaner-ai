@@ -8,11 +8,15 @@ import com.fsoares.util.NumberUtil;
 public class Main {
 
     public static void main(String[] args) {
-        Environment env = new Environment(1, 5);
-        env.dirty(0, 0);
+        Environment env = new Environment(5, 5);
+        for(int i = 0; i < 10; i++) {
+            int x = NumberUtil.randomInt(0, 4);
+            int y = NumberUtil.randomInt(0, 4);
 
+            env.dirty(x, y);
+        }
+        
         Cleaner cleaner = new Cleaner(env, new Position(0, 4));
         cleaner.run();
-
     }
 }

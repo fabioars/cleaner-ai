@@ -70,12 +70,20 @@ public class Environment {
     }
 
     public Position closestDirty(Position ref) {
-        final Position closest = this.bounds.getPositionFinal().clone();
+        final Position closest = new Position(-1, -1);
         this.forEach((Position position, boolean isDirty, Environment context) -> {
+            if(isDirty && !bounds.isInBounds(closest)) {
+                closest.set(position);
+            }
+
             if (isDirty && position.distance(ref) <= closest.distance(ref)) {
                 closest.set(position);
             }
         });
+
+        if(!bounds.isInBounds(closest)) {
+            return null;
+        }
 
         return closest;
     }

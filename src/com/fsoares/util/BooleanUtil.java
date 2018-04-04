@@ -2,7 +2,7 @@ package com.fsoares.util;
 
 public class BooleanUtil {
 
-    private boolean ref = false;
+    private boolean ref;
 
     public BooleanUtil(boolean ref) {
         this.ref = ref;
