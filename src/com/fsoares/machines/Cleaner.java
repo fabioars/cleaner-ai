@@ -3,21 +3,24 @@ package com.fsoares.machines;
 import com.fsoares.env.Environment;
 import com.fsoares.env.Position;
 import com.fsoares.machines.actions.*;
-import com.fsoares.machines.actions.abstractions.ActionInterface;
-import com.fsoares.util.Number;
-import com.fsoares.util.Time;
+import com.fsoares.machines.abstractions.ActionInterface;
+import com.fsoares.machines.abstractions.AgentInterface;
+import com.fsoares.util.TimeUtil;
 
-public class Cleaner extends Machine implements Runnable {
+public class Cleaner extends Machine implements Runnable, AgentInterface {
 
     public Cleaner(Environment env, Position position) {
         super(env, position);
     }
 
-    private ActionInterface decide() {
+    public ActionInterface decide() {
         Environment env = this.getEnv();
-        Position closet = env.closestDurty(this.getPosition());
+        Position closet = env.closestDirty(this.getPosition());
 
-        if(closet == null) {
+        boolean isAllClear = env.isAllClean();
+        if(isAllClear) {
+            history.stop();
+
             return new Stay().setContext(this);
         }
 
@@ -45,13 +48,21 @@ public class Cleaner extends Machine implements Runnable {
     }
 
     public void run() {
+        this.history.run();
+
         while (true) {
             System.out.println(this.getPosition());
             System.out.println(this.getEnv());
 
-            this.addAction(this.decide());
+            ActionInterface nextAction = this.decide();
+            this.addAction(nextAction);
             this.act();
-            this.waiting(Time.seconds(1));
+
+            if(!history.isRunning()) {
+                return;
+            }
+
+            this.waiting(TimeUtil.seconds(1));
         }
     }
 

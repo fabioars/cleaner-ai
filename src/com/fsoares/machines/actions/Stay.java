@@ -1,7 +1,7 @@
 package com.fsoares.machines.actions;
 
-import com.fsoares.machines.actions.abstractions.ActionInterface;
-import com.fsoares.machines.actions.abstractions.Movement;
+import com.fsoares.machines.abstractions.ActionInterface;
+import com.fsoares.machines.abstractions.Movement;
 
 public class Stay extends Move implements ActionInterface {
 

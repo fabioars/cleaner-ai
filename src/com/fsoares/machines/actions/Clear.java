@@ -2,17 +2,11 @@ package com.fsoares.machines.actions;
 
 import com.fsoares.env.Environment;
 import com.fsoares.machines.Machine;
-import com.fsoares.machines.actions.abstractions.ActionInterface;
+import com.fsoares.machines.abstractions.ActionInterface;
 
 public class Clear implements ActionInterface {
 
     private Machine context = null;
-
-    public Clear() {}
-
-    public Clear(Machine context) {
-        this.setContext(context);
-    }
 
     public Machine getContext() {
         return context;

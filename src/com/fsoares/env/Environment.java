@@ -1,5 +1,7 @@
 package com.fsoares.env;
 
+import com.fsoares.util.BooleanUtil;
+
 public class Environment {
 
     private int env[][] = null;
@@ -32,8 +34,8 @@ public class Environment {
     }
 
     public Environment forEach(EnvironmentIterable interable) {
-        for(int x = 0; x <= this.bounds.getPositionFinal().getX(); x++) {
-            for(int y = 0; y <= this.bounds.getPositionFinal().getY(); y++) {
+        for (int x = 0; x <= this.bounds.getPositionFinal().getX(); x++) {
+            for (int y = 0; y <= this.bounds.getPositionFinal().getY(); y++) {
                 interable.each(Position.getInstance(x, y), this.isDirty(x, y), this);
             }
         }
@@ -62,15 +64,15 @@ public class Environment {
         return this;
     }
 
-    public Environment dirty(Position position){
+    public Environment dirty(Position position) {
         this.dirty(position.getX(), position.getY());
         return this;
     }
 
-    public Position closestDurty(Position ref) {
+    public Position closestDirty(Position ref) {
         final Position closest = this.bounds.getPositionFinal().clone();
-        this.forEach((Position position, boolean isDuty, Environment context) -> {
-            if(isDuty && position.distance(ref) <= closest.distance(ref)) {
+        this.forEach((Position position, boolean isDirty, Environment context) -> {
+            if (isDirty && position.distance(ref) <= closest.distance(ref)) {
                 closest.set(position);
             }
         });
@@ -78,25 +80,38 @@ public class Environment {
         return closest;
     }
 
-    public Position closestDurty(int x, int y) {
-        return this.closestDurty(Position.getInstance(x, y));
+    public Position closestDirty(int x, int y) {
+        return this.closestDirty(Position.getInstance(x, y));
     }
 
     public Bounds getBounds() {
         return this.bounds;
     }
 
+    public boolean isAllClean() {
+        final BooleanUtil ref = new BooleanUtil(true);
+
+        this.forEach((Position position, boolean isDirty, Environment context) -> {
+            if(isDirty) {
+                ref.setRef(false);
+            }
+        });
+
+        return ref.isRef();
+    }
+
     @Override
     public String toString() {
-        String partial = "";
+        StringBuilder partial = new StringBuilder("");
 
         for(int x = 0; x <= this.bounds.getPositionFinal().getX(); x++) {
             for(int y = 0; y <= this.bounds.getPositionFinal().getY(); y++) {
-                partial += this.env[x][y];
+                partial.append(this.env[x][y]);
             }
-            partial += "\n";
+
+            partial.append("\n");
         }
 
-        return partial;
+        return partial.toString();
     }
 }

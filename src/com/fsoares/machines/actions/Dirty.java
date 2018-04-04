@@ -2,17 +2,11 @@ package com.fsoares.machines.actions;
 
 import com.fsoares.env.Environment;
 import com.fsoares.machines.Machine;
-import com.fsoares.machines.actions.abstractions.ActionInterface;
+import com.fsoares.machines.abstractions.ActionInterface;
 
 public class Dirty implements ActionInterface {
 
     private Machine context = null;
-
-    public Dirty() {}
-
-    public Dirty(Machine context) {
-        this.setContext(context);
-    }
 
     public Machine getContext() {
         return context;

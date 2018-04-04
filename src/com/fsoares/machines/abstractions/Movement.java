@@ -1,12 +1,12 @@
-package com.fsoares.machines.actions.abstractions;
+package com.fsoares.machines.abstractions;
 
-import com.fsoares.util.Number;
+import com.fsoares.util.NumberUtil;
 
 public enum Movement {
     UP, DOWN, LEFT, RIGHT, STAY;
 
     public static Movement random() {
-        int number = Number.randomInt(0, 4);
+        int number = NumberUtil.randomInt(0, 4);
 
         switch (number) {
             case 0:

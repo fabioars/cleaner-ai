@@ -6,7 +6,7 @@ public class Fifo<T> {
 
     private ArrayList<T> list = null;
 
-    private static final int FIST_ELEMENT = 0;
+    private static final int NEXT_POSITION = 0;
 
     public Fifo (){
         this.list = new ArrayList<>();
@@ -19,7 +19,7 @@ public class Fifo<T> {
     }
 
     public T next() {
-        return list.remove(FIST_ELEMENT);
+        return list.remove(NEXT_POSITION);
     }
 
     public boolean isEmpty() {
@@ -28,5 +28,9 @@ public class Fifo<T> {
 
     public ArrayList<T> getList() {
         return this.list;
+    }
+
+    public int size() {
+        return this.list.size();
     }
 }
