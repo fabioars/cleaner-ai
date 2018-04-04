@@ -3,7 +3,10 @@ package com.fsoares;
 import com.fsoares.env.Environment;
 import com.fsoares.env.Position;
 import com.fsoares.machines.Cleaner;
+import com.fsoares.machines.abstractions.ActionInterface;
+import com.fsoares.machines.actions.Clear;
 import com.fsoares.util.NumberUtil;
+import com.fsoares.util.StringUtil;
 
 public class Main {
 
@@ -15,7 +18,7 @@ public class Main {
 
             env.dirty(x, y);
         }
-        
+
         Cleaner cleaner = new Cleaner(env, new Position(0, 4));
         cleaner.run();
     }
