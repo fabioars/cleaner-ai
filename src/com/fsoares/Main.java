@@ -11,15 +11,15 @@ import com.fsoares.util.StringUtil;
 public class Main {
 
     public static void main(String[] args) {
-        Environment env = new Environment(5, 5);
-        for(int i = 0; i < 10; i++) {
-            int x = NumberUtil.randomInt(0, 4);
-            int y = NumberUtil.randomInt(0, 4);
+        Environment env = new Environment(10, 10);
+        for(int i = 0; i < 50; i++) {
+            int x = NumberUtil.randomInt(0, 9);
+            int y = NumberUtil.randomInt(0, 9);
 
             env.dirty(x, y);
         }
 
-        Cleaner cleaner = new Cleaner(env, new Position(0, 4));
+        Cleaner cleaner = new Cleaner(env, new Position(0, 0));
         cleaner.run();
     }
 }

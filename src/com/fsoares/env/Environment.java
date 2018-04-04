@@ -114,7 +114,7 @@ public class Environment {
 
         for(int x = 0; x <= this.bounds.getPositionFinal().getX(); x++) {
             for(int y = 0; y <= this.bounds.getPositionFinal().getY(); y++) {
-                partial.append(this.env[x][y]);
+                partial.append(this.env[x][y] == 1 ? "+" : "0");
             }
 
             partial.append("\n");

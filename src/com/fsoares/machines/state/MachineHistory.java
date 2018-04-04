@@ -1,19 +1,23 @@
 package com.fsoares.machines.state;
 
+import com.fsoares.machines.Machine;
 import com.fsoares.machines.abstractions.ActionInterface;
 import com.fsoares.util.Fifo;
+import com.fsoares.util.StringUtil;
 
 import java.util.Date;
 
 public class MachineHistory {
 
+    private Machine machine;
     private boolean isRunning = false;
     private Fifo<ActionInterface> actions;
     private Date startTime;
     private Date endTime;
 
-    public MachineHistory() {
+    public MachineHistory(Machine machine) {
         this.actions = new Fifo<>();
+        this.setMachine(machine);
     }
 
     public MachineHistory addAction(ActionInterface action) {
@@ -45,4 +49,13 @@ public class MachineHistory {
     public int count() {
         return this.actions.size();
     }
+
+    public Machine getMachine() {
+        return machine;
+    }
+
+    public void setMachine(Machine machine) {
+        this.machine = machine;
+    }
+
 }

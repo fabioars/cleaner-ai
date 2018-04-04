@@ -30,6 +30,10 @@ public class Fifo<T> {
         return this.list;
     }
 
+    public Object[] toArray() {
+        return this.list.toArray();
+    }
+
     public int size() {
         return this.list.size();
     }

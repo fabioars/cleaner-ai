@@ -5,6 +5,7 @@ import com.fsoares.env.Position;
 import com.fsoares.machines.actions.*;
 import com.fsoares.machines.abstractions.ActionInterface;
 import com.fsoares.machines.abstractions.AgentInterface;
+import com.fsoares.util.StringUtil;
 import com.fsoares.util.TimeUtil;
 
 public class Cleaner extends Machine implements Runnable, AgentInterface {
@@ -51,14 +52,16 @@ public class Cleaner extends Machine implements Runnable, AgentInterface {
         this.history.run();
 
         while (true) {
-            System.out.println(this.getPosition());
-            System.out.println(this.getEnv());
-
             ActionInterface nextAction = this.decide();
             this.addAction(nextAction);
             this.act();
 
+            System.out.println(this.getPosition());
+            System.out.println(this.getEnv());
+            System.out.println(StringUtil.packageToClass(nextAction.getClass().toString()));
+
             if(!history.isRunning()) {
+                System.out.println("Quantidade de ações: " + history.count());
                 return;
             }
 

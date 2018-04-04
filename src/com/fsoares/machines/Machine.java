@@ -12,7 +12,7 @@ public abstract class Machine extends Thread implements MovableInterface, AgentI
 
     private Environment env;
 
-    protected MachineHistory history = new MachineHistory();
+    protected MachineHistory history = new MachineHistory(this);
 
     public Machine(Environment env, Position position) {
         this.env = env;
