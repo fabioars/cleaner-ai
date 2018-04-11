@@ -34,16 +34,16 @@ public class MachineHistory {
     }
 
     public void run() {
-        startTime = new Date();
-        endTime = null;
+        this.startTime = new Date();
+        this.endTime = null;
 
-        isRunning = true;
+        this.isRunning = true;
     }
 
     public void stop() {
-        endTime = new Date();
+        this.endTime = new Date();
 
-        isRunning = false;
+        this.isRunning = false;
     }
 
     public int count() {
@@ -58,4 +58,11 @@ public class MachineHistory {
         this.machine = machine;
     }
 
+    public Date getStartTime() {
+        return startTime;
+    }
+
+    public Date getEndTime() {
+        return endTime;
+    }
 }

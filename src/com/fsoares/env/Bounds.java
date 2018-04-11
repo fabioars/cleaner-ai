@@ -10,7 +10,7 @@ public class Bounds {
     }
 
     public Bounds(Position finalPosition) {
-        this.positionFinal = finalPosition;
+        this.positionFinal = finalPosition.clone();
     }
 
     public boolean isInBounds(int x, int y) {

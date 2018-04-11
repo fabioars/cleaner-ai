@@ -16,28 +16,28 @@ public class Cleaner extends Machine implements Runnable, AgentInterface {
 
     public ActionInterface decide() {
         Environment env = this.getEnv();
-        Position closet = env.closestDirty(this.getPosition());
+        Position closest = env.closestDirty(this.getPosition());
 
         boolean isAllClear = env.isAllClean();
-        if(isAllClear || closet == null) {
+        if(isAllClear || closest == null) {
             history.stop();
 
             return new Stay().setContext(this);
         }
 
-        boolean isInSamePosition = closet.equals(this.getPosition());
+        boolean isInSamePosition = closest.equals(this.getPosition());
         if(isInSamePosition) {
             return new Clear().setContext(this);
         }
 
-        int diffX = this.getPosition().diffX(closet.getX());
+        int diffX = this.getPosition().diffX(closest.getX());
         if(diffX > 0) {
             return new MoveLeft().setContext(this);
         } else if(diffX < 0) {
             return new MoveRight().setContext(this);
         }
 
-        int diffY = this.getPosition().diffY(closet.getY());
+        int diffY = this.getPosition().diffY(closest.getY());
         if(diffY > 0) {
             return new MoveUp().setContext(this);
         } else if(diffY < 0) {
@@ -51,22 +51,20 @@ public class Cleaner extends Machine implements Runnable, AgentInterface {
     public void run() {
         this.history.run();
 
-        while (true) {
+        while (history.isRunning()) {
             ActionInterface nextAction = this.decide();
             this.addAction(nextAction);
             this.act();
 
-            System.out.println(this.getPosition());
-            System.out.println(this.getEnv());
-            System.out.println(StringUtil.packageToClass(nextAction.getClass().toString()));
+            System.out.println("Limpador: " + this.getPosition());
+            System.out.println("Limpador: " + StringUtil.packageToClass(nextAction.getClass().toString()));
 
-            if(!history.isRunning()) {
-                System.out.println("Quantidade de ações: " + history.count());
-                return;
-            }
+            System.out.println(this.getEnv());
 
             this.waiting(TimeUtil.seconds(1));
         }
+
+        System.out.println("Ações Limpador: " + history.count());
     }
 
 }

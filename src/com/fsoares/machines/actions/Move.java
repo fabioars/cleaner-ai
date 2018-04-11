@@ -7,47 +7,57 @@ import com.fsoares.machines.abstractions.Movement;
 
 public class Move implements ActionInterface {
 
-    MovableInterface movable = null;
+    private Movement next;
+    private MovableInterface context;
+
+    public Move() {
+        next = Movement.random();
+    }
 
     public MovableInterface getContext() {
-        return movable;
+        return context;
     }
 
     public Move setContext(MovableInterface context) {
-        this.movable = context;
+        this.context = context;
 
         return this;
     }
 
+    public Movement getNext() {
+        return next;
+    }
+
     public Position move(Movement movement) {
-        Position nextPosition = this.movable.position;
+        Position next = this.getContext().position;
+
         switch (movement) {
             case UP:
-                nextPosition.setY(nextPosition.getY() - 1);
+                next.setY(next.getY() - 1);
                 break;
 
             case DOWN:
-                nextPosition.setY(nextPosition.getY() + 1);
+                next.setY(next.getY() + 1);
                 break;
 
             case LEFT:
-                nextPosition.setX(nextPosition.getX() - 1);
+                next.setX(next.getX() - 1);
                 break;
 
             case RIGHT:
-                nextPosition.setX(nextPosition.getX() + 1);
+                next.setX(next.getX() + 1);
                 break;
 
             case STAY:
-                return nextPosition;
+                return next;
 
         }
 
-        return nextPosition;
+        return next;
     }
 
     @Override
     public void act() {
-        this.move(Movement.random());
+        this.move(this.next);
     }
 }
